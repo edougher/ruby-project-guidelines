@@ -11,4 +11,6 @@ class User < ActiveRecord::Base
     # select a different recipe 
     # change the category
 
+    
+
 end
