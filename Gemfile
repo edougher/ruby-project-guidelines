@@ -10,3 +10,6 @@ gem 'require_all'
 gem 'sqlite3'
 gem 'pry'
 gem 'faker'
+gem 'rest-client'
+gem 'json'
+
