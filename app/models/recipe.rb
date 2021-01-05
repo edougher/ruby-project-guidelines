@@ -1,13 +1,13 @@
 class Recipe < ActiveRecord::Base 
-    has_many :users
-    has_many :favorites, through: :users
+    # has_many :users
+    has_many :favorites
+    has_many :users, through: :favorites
 
-
-    #def meal_category
-    #    category_data = RestClient.get('https://www.themealdb.com/api/json/v2/9973533/categories.php')
-    #    parsed_categroy = JSON.parse(category_data)
-    #    binding.pry 
-    #end 
+    # methods needed:
+    # display all caterogies in an array
+    # display all ingredients with measurements 
+    # sort recipes by time under 30, under 45, under 60
+    # find all the users 
 
 
 end
