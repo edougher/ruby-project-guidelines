@@ -2,7 +2,6 @@ User.destroy_all
 Recipe.destroy_all
 Favorite.destroy_all
 
-
 user_1 = User.create(name: "James")
 user_2 = User.create(name: "Aaron")
 user_3 = User.create(name: "Abbie")
@@ -23,10 +22,6 @@ recipe_8 = Recipe.create(category: "Vegetarian", name: Faker::Food.dish, region:
 recipe_9 = Recipe.create(category: "Vegan", name: Faker::Food.dish, region: Faker::Nation.nationality, ingredient_list: total_ingredient, instruction: Faker::Food.description, time: 60)
 recipe_10 = Recipe.create(category: "Pork", name: Faker::Food.dish, region: Faker::Nation.nationality, ingredient_list: total_ingredient, instruction: Faker::Food.description, time: 30)
 
-
-user_id = User.all.map { |user| user.id }
-recipe_id = Recipe.all.map { |recipe| recipe.id }
-
 fav_1 = Favorite.create(user_id: user_1.id, recipe_id: recipe_1.id)
 fav_2 = Favorite.create(user_id: user_1.id, recipe_id: recipe_2.id)
 fav_3 = Favorite.create(user_id: user_2.id, recipe_id: recipe_3.id)
@@ -44,6 +39,9 @@ fav_14 = Favorite.create(user_id: user_2.id, recipe_id: recipe_7.id)
 fav_15 = Favorite.create(user_id: user_2.id, recipe_id: recipe_6.id)
 fav_16 = Favorite.create(user_id: user_3.id, recipe_id: recipe_10.id)
 fav_17 = Favorite.create(user_id: user_1.id, recipe_id: recipe_6.id)
+
+# user_id = User.all.map { |user| user.id }
+# recipe_id = Recipe.all.map { |recipe| recipe.id }
 
 # 20.times do
 #     Favorite.create(user_id: user_id.sample, recipe_id: recipe_id.sample)
