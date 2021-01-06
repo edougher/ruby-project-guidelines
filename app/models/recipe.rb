@@ -11,12 +11,16 @@ class Recipe < ActiveRecord::Base
     end
     # display all ingredients with measurements
     def self.all_ingredients 
-        self.all.map {|recipe| recipe_name.ingredient_list}
+        #name dish?
+        self.all.map {|recipe| recipe.ingredient_list}
     end
     # sort recipes by time under 30, under 45, under 60
-    def self.sort_by_cooktime
-        self.all.map do |recipe| 
-        "#{recipe.name} takes #{recipe.time} minutes"
+    def self.sort_by_cooktime(time)
+        self.all.select do |recipe| 
+            if recipe.time <= time
+                recipe
+            end
+        
           #less than 20
         #case recipe.time 
         #when 0..20
@@ -27,7 +31,7 @@ class Recipe < ActiveRecord::Base
         #else 
         #    "#{recipe.name} takes #{recipe.time} minutes"
         #end
-      end
+      end.sample
     end
 
     # find all the users 
