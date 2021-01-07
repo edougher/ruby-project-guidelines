@@ -9,7 +9,9 @@ class Recipe < ActiveRecord::Base
 
     # select a random recipe 
     def self.random_recipe
-      self.all.sample 
+      self.all.select do |recipe|
+        recipe
+      end 
     end
 
     # sort recipes by time under 30, under 45, under 60 - 

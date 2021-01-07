@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
     #create login method
 
-    # create a username - still needs work 
+    # find or create a username  
     def self.create_user(name)
         if User.find_by(name: name)
             puts "This user name alredy taken. Try again."
