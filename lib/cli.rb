@@ -44,6 +44,7 @@ class CLI
 
     def display_recipe(choice)
         clear_terminal
+
         puts "Ta Da! Let's cook this #{choice.category} meal:"
         puts "Name: #{choice.name}\nRegion: #{choice.region}\nTime: #{choice.time} minutes\nIngredients: #{choice.ingredient_list}\nInstructions: #{choice.instruction}"
         
@@ -81,11 +82,11 @@ class CLI
 
         prompt = TTY::Prompt.new
         fav_choice = prompt.select("Select one category:", display_favorites)
-        #binding.pry 
 
         fav_recipe = @user.recipes.where(name: fav_choice)
+        sent_recipe = fav_recipe.first 
 
-        display_recipe(fav_recipe)
+        display_recipe(sent_recipe)
         # need to write display for favorites
     end
     
