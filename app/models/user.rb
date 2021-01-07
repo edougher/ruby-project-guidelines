@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
     end
 
     # helper method for deleting favorite recipe
-    def view_favorites
+    def view_user_favorites
         self.favorites 
     end
 
@@ -25,8 +25,9 @@ class User < ActiveRecord::Base
 
     # find or create a username  
     def self.create_user(name)
-        if User.find_by(name: name)
-            puts "This user name alredy taken. Try again."
+        user = User.find_by(name: name)
+        if user
+            user 
         else
             User.create(name: name)
         end
@@ -34,7 +35,7 @@ class User < ActiveRecord::Base
 
     # user can delete a recipe from user favorites
     def delete_favorite(recipe_id) 
-        fav_recipe = view_favorites.find_by(recipe_id: recipe_id) 
+        fav_recipe = view_user_favorites.find_by(recipe_id: recipe_id) 
         fav_recipe.destroy  
     end
 
