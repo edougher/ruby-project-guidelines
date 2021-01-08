@@ -6,6 +6,7 @@ class Favorite < ActiveRecord::Base
     # user can leave a recipie notes
     def add_note_to_recipe(note)
         self.user_note = note
+        self.save
     end
     
 end

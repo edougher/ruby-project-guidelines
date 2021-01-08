@@ -14,7 +14,7 @@ class Recipe < ActiveRecord::Base
       end 
     end
 
-    # sort recipes by time under 30, under 45, under 60 - 
+    # sort recipes by time under 30, under 45, under 60
     def self.sort_by_cooktime(time)
         self.all.select do |recipe| 
             if recipe.time <= time
@@ -23,7 +23,7 @@ class Recipe < ActiveRecord::Base
       end.sample
     end
 
-    #display all ingredients with measurements - for grocery list
+    #display recipe ingredients w/ measurements
     def self.all_ingredients 
       self.all.map do |recipe|
             "#{recipe.name} - #{recipe.ingredient_list}"

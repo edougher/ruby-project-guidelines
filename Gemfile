@@ -12,4 +12,7 @@ gem 'pry'
 gem 'faker'
 gem 'rest-client'
 gem 'json'
+gem 'tty-table'
+gem 'colorize'
+
 
