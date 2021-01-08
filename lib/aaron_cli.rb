@@ -2,6 +2,7 @@ class CLI
 
     def run 
         sign_in_or_create_login 
+        Rails.application.load_seed
     end
 
     def sign_in_or_create_login
@@ -32,6 +33,7 @@ class CLI
         prompt = TTY::Prompt.new
         display_categories = Recipe.all_categories
         choice = prompt.select("Select a category:", display_categories)
+        #binding.pry
 
         recipe_choice = Recipe.all.where(category: choice)
         ###Give more choices to choose by just name
@@ -55,6 +57,7 @@ class CLI
 
     def selection(second_choice, recipe)
         if second_choice == "Search again?"
+            add_more_seeds
             home
         elsif second_choice == "Add to Favorites"
             @user.create_favorite(recipe)
@@ -131,7 +134,7 @@ class CLI
 
     def fav_selection(thrid_choice, sent_recipe)
         if thrid_choice == "Add Notes"
-            #add_note function
+            
             add_note(sent_recipe)
         elsif thrid_choice == "Delete from Favorites"
             ###Add delete 
@@ -168,6 +171,36 @@ class CLI
 
     def clear_terminal
         system "clear"
+    end
+
+    def add_more_seeds
+    api_key = 9973533
+    api_url = "https://www.themealdb.com/api/json/v2/#{api_key}/"
+    
+    find_ten_random = api_url + "randomselection.php"
+
+    3.times do
+    recipe_data = RestClient.get(find_ten_random)
+    parsed_recipe = JSON.parse(recipe_data.body)
+    parsed_recipe.map do |meal_hash|
+        #binding.pry
+        i = 0
+        while i < 10 do
+        meal = meal_hash[1][i]
+        meal_name = meal["strMeal"]
+        meal_category = meal["strCategory"]
+        meal_instructions = meal["strInstructions"]
+        meal_area = meal["strArea"]
+        meal_ingredients = meal["strIngredient1"]
+    
+        i += 1
+        all_categories = Recipe.all_categories
+        new_recipe = Recipe.create(category: meal_category, name: meal_name, region: meal_area, ingredient_list: meal_ingredients, time: rand(20..80), instruction: meal_instructions)
+        new_recipe.reload
+        end
+      end
+    end
+
     end
 
 end
