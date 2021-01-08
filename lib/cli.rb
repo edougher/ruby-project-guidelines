@@ -15,26 +15,22 @@ class CLI
     end
 
     def login
-        puts "enter your username"
-        user_name = gets.chomp         
+        puts "Enter your username:" 
+        
+        user_name = gets.chomp 
         @user = User.create_user(user_name)
-        # if @user
-        #     clear_terminal
-        #     home
-        # else 
-        #     login
-        # end
+
         home 
         # come back to to two login-pages
     end
 
     def home
-        # clear_terminal
+        clear_terminal
         puts "Welcome #{@user.name}, what do you feel like cooking tonight?"
 
         prompt = TTY::Prompt.new
         display_categories = Recipe.all_categories
-        choice = prompt.select("Select one category:", display_categories)
+        choice = prompt.select("Select a category:", display_categories)
 
         recipe_choice = Recipe.all.where(category: choice)
         first_choice = recipe_choice.sample
@@ -52,21 +48,29 @@ class CLI
         display_categories = ["Search again?", "Add to Favorites", "View Favorites", "Log Off"]
         second_choice = prompt.select("Select one:", display_categories)
 
-        selection(second_choice)
+        selection(second_choice, choice)
     end
 
-    def selection(second_choice)
+    def selection(second_choice, recipe)
         if second_choice == "Search again?"
             home 
-            # works - need to clean up a bit
         elsif second_choice == "Add to Favorites"
-            binding.pry 
-            create_favorite(recipe)
-            # breaks 
+            @user.create_favorite(recipe)
+            sleep 2
+            display_recipe(recipe)
         elsif second_choice == "View Favorites"
-            view_favorites
+            if display_favorites.any? == false  
+                puts "You have no favorites saved."
+                sleep 2
+                display_recipe(recipe)
+            else
+                view_favorites
+            end
         else second_choice == "Log Off"
-            log_off
+            clear_terminal
+            puts "Goodbye #{@user.name}! Happy cooking!"
+            sleep 5 
+            clear_terminal
         end
     end
 
@@ -81,18 +85,48 @@ class CLI
         puts "#{@user.name} favorties:" 
 
         prompt = TTY::Prompt.new
-        fav_choice = prompt.select("Select one category:", display_favorites)
+        fav_choice = prompt.select("Select a favorite:", display_favorites)
 
         fav_recipe = @user.recipes.where(name: fav_choice)
         sent_recipe = fav_recipe.first 
+        #binding.pry 
+        display_fav_recipe(sent_recipe)
+    end
 
-        display_recipe(sent_recipe)
-        # need to write display for favorites
+    def display_fav_recipe(sent_recipe)
+        clear_terminal
+
+        puts "Your favorite #{sent_recipe.category} recipe:"
+        puts "Name: #{sent_recipe.name}\nRegion: #{sent_recipe.region}\nTime: #{sent_recipe.time} minutes\nIngredients: #{sent_recipe.ingredient_list}\nInstructions: #{sent_recipe.instruction}"
+        
+        prompt = TTY::Prompt.new
+        display_categories = ["Add Notes", "Delete from Favorites", "View Favorites", "Log Off"]
+        thrid_choice = prompt.select("Select one:", display_categories)
+
+        fav_selection(thrid_choice, sent_recipe)
+    end
+
+    def fav_selection(thrid_choice, sent_recipe)
+        if thrid_choice == "Add Notes"
+            puts "this works"
+        elsif thrid_choice == "Delete from Favorites"
+            puts "this works too"
+        elsif thrid_choice == "View Favorites"
+            view_favorites
+        else thrid_choice == "Log Off"
+            clear_terminal
+            puts "Goodbye #{@user.name}! Happy cooking!"
+            sleep 5 
+            clear_terminal
+        end
     end
     
+    # log_off not displaying - no method error - need help 
     def log_off
         clear_terminal
         puts "Goodbye #{@user.name}! Happy cooking!"
+        sleep 5 
+        clear_terminal
     end 
 
     def clear_terminal

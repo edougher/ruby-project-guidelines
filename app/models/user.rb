@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
             puts "This recipe is already a favorite."
          else
             Favorite.create(user_id: self.id, recipe_id: recipe.id)
+            puts "This was added to your favorites."
          end
     end
 
@@ -27,7 +28,7 @@ class User < ActiveRecord::Base
     def self.create_user(name)
         user = User.find_by(name: name)
         if user
-            user 
+            user
         else
             User.create(name: name)
         end
