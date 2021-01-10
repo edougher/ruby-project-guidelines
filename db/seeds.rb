@@ -6,7 +6,7 @@ Recipe.destroy_all
 Favorite.destroy_all
 
 
-    api_key = 9973533
+    api_key = ***key***
     api_url = "https://www.themealdb.com/api/json/v2/#{api_key}/"
     
     find_ten_random = api_url + "randomselection.php"
@@ -83,7 +83,7 @@ Favorite.destroy_all
 #10.times do
 #    User.create(name: Faker::FunnyName.two_word_name)
 #
-#    recipe_data = RestClient.get('https://www.themealdb.com/api/json/v2/9973533/random.php')
+#    recipe_data = RestClient.get('https://www.themealdb.com/api/json/v2/***key***/random.php')
 #    parsed_recipe = JSON.parse(recipe_data)
 #    meal_hash = parsed_recipe["meals"][0]
 #    meal_name = meal_hash["strMeal"]

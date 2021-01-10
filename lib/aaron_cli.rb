@@ -174,7 +174,7 @@ class CLI
     end
 
     def add_more_seeds
-    api_key = 9973533
+    api_key = ***key***
     api_url = "https://www.themealdb.com/api/json/v2/#{api_key}/"
     
     find_ten_random = api_url + "randomselection.php"
