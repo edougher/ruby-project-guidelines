@@ -141,7 +141,6 @@ class CLI
             @user.delete_favorite(sent_recipe) 
             puts "Recipe has been deleted.".colorize(:green)
             sleep 1
-            # how do we get it to view updated favorites?
             home 
         elsif thrid_choice == "View Favorites"
             view_favorites
@@ -225,8 +224,8 @@ class CLI
     end
 
     def add_more_seeds
-        api_key = 9973533
-        api_url = "https://www.themealdb.com/api/json/v2/#{api_key}/"
+        
+
         
         find_ten_random = api_url + "randomselection.php"
     
