@@ -2,12 +2,10 @@ class User < ActiveRecord::Base
     has_many :favorites
     has_many :recipes, through: :favorites 
 
-    # view all of user's recipes
     def user_recipes
         self.recipes
     end
 
-     # creates a favroite reciepe
      def create_favorite(recipe)
         if user_recipes.include?(recipe) 
             puts "This recipe was already a favorite.".colorize(:red)
@@ -17,7 +15,6 @@ class User < ActiveRecord::Base
          end
     end
 
-    # find or create a username  
     def self.create_user(name)
         user = User.find_by(name: name)
         if user
@@ -29,7 +26,6 @@ class User < ActiveRecord::Base
         end
     end
 
-    # user can delete a recipe from user favorites
     def delete_favorite(recipe) 
         fav_recipe = self.favorites.find_by(recipe_id: recipe) 
         fav_recipe.destroy  

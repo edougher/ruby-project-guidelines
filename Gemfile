@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-source "https://rubygems.org"
-
+gem 'dotenv'
 gem "rspec"
 gem 'tty-prompt'
 gem 'activerecord'
@@ -14,5 +12,3 @@ gem 'rest-client'
 gem 'json'
 gem 'tty-table'
 gem 'colorize'
-
-

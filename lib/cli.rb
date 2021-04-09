@@ -1,3 +1,4 @@
+require 'pry'
 class CLI
 
     def run
@@ -30,7 +31,6 @@ class CLI
         @user = User.create_user(user_name)
         sleep 2
         home 
-        # could make a unique home page for return users to view favs or search
     end
 
     def home
@@ -225,7 +225,8 @@ class CLI
 
     def add_more_seeds
         
-
+        api_key = ENV["API_KEY"]
+        api_url = "https://www.themealdb.com/api/json/v2/#{api_key}/"
         
         find_ten_random = api_url + "randomselection.php"
     
@@ -241,7 +242,14 @@ class CLI
             meal_category = meal["strCategory"]
             meal_instructions = meal["strInstructions"]
             meal_area = meal["strArea"]
-            meal_ingredients = meal["strIngredient1"]
+
+            one_i = meal["strMeasure1"] + ' ' + meal["strIngredient1"] + ', '
+            two_i = meal["strMeasure2"] + ' ' + meal["strIngredient2"] + ', '
+            three_i = meal["strMeasure3"] + ' ' + meal["strIngredient3"] + ', '
+            four_i = meal["strMeasure4"] + ' ' + meal["strIngredient4"] + ', '
+            five_i = meal["strMeasure5"] + ' ' + meal["strIngredient5"]
+
+            meal_ingredients = one_i + two_i + three_i + four_i + five_i
         
             i += 1
             all_categories = Recipe.all_categories
@@ -253,5 +261,4 @@ class CLI
     
     end
     
-
 end

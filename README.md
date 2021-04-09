@@ -62,5 +62,5 @@ Inside View Favorites
 
 ---
 
-Created by: 
+Created by: James Sapp and Aaron Dougher
 
